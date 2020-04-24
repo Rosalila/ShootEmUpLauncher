@@ -1,3 +1,9 @@
+assets/
+release-builds/
+log
+shmup
+shmup.exe
+
 # Logs
 logs
 *.log

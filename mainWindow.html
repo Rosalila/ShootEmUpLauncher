@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shoot Em Up Launcher</title>
+  </head>
+  <body>
+    <form>
+      <div>
+        <label>Fullscreen</label>
+        <input type='checkbox' id='fullscreen' autofocus>
+        <br>
+        <label>Screen size</label>
+        <select id='screen_size' >
+          <option value=''>select</option>
+          <option value='1280 x 720'>1280 x 720</option>
+          <option value='1366 x 768'>1366 x 768</option>
+          <option value='1920 x 1080'>1920 x 1080</option>
+          <option value='2560 x 1440'>2560 x 1440</option>
+        </select>
+      </div>
+    </form>
+    <button id='play_button'>Play</button>
+    <script>
+      const electron = require('electron')
+      const {ipcRenderer} = electron
+
+      window.addEventListener('load', function(){
+        const fs = require('fs')
+        const config_file_path = './assets/config.json'
+        const config_json = require(config_file_path)
+
+        const fullscreen = config_json.fullscreen.enabled
+        const screen_size = config_json.screen_size.x + ' x ' + config_json.screen_size.y
+        
+        document.getElementById('fullscreen').checked = (fullscreen == 'yes')
+        document.getElementById('screen_size').value = screen_size
+      })
+
+      document.querySelector('#fullscreen').addEventListener('change', function(e){
+        e.preventDefault()
+        const fullscreen = document.querySelector('#fullscreen').checked
+
+        const fs = require('fs')
+        const config_file_path = './assets/config.json'
+        const config_json = require(config_file_path)
+
+        if(fullscreen)
+          config_json.fullscreen.enabled = 'yes'
+        else
+          config_json.fullscreen.enabled = 'no'
+
+        fs.writeFile(config_file_path, JSON.stringify(config_json, null, 2), function writeJSON(err) {
+          if (err) return console.log(err)
+        })
+      })
+
+      document.querySelector('#screen_size').addEventListener('change', function(e){
+        e.preventDefault()
+        const screen_size = document.querySelector('#screen_size').value
+
+        const fs = require('fs')
+        const config_file_path = './assets/config.json'
+        const config_json = require(config_file_path)
+        
+        switch(screen_size) {
+          case '1280 x 720':
+            config_json.screen_size.x = '1280'
+            config_json.screen_size.y = '720'
+            break
+          case '1366 x 768':
+            config_json.screen_size.x = '1366'
+            config_json.screen_size.y = '768'
+            break
+          case '1920 x 1080':
+            config_json.screen_size.x = '1920'
+            config_json.screen_size.y = '1080'
+            break
+          case '2560 x 1440':
+            config_json.screen_size.x = '2560'
+            config_json.screen_size.y = '1440'
+            break
+          default:
+        }
+
+        fs.writeFile(config_file_path, JSON.stringify(config_json, null, 2), function writeJSON(err) {
+          if (err) return console.log(err)
+        })
+      })
+
+      document.querySelector('#play_button').addEventListener('click', function(){
+        const { exec } = require('child_process');
+
+        if(process.platform == 'linux' )
+        {
+          exec('./shmup', (err, stdout, stderr) => {
+            if (err) {
+              console.error(`exec error: ${err}`)
+              return;
+            }
+          });
+        }
+        else
+        {
+          exec('shmup.exe', (err, stdout, stderr) => {
+            if (err) {
+              console.error(`exec error: ${err}`)
+              return;
+            }
+          });
+        }
+
+        app.quit()
+      })
+    </script>
+  </body>
+</html>
