@@ -1,0 +1,63 @@
+{
+  "bullets":
+  [
+    {
+      "name": "lazer",
+      "damage": "1",
+      "sound": {
+        "channel": "3",
+        "path": "sounds/shoot.ogg"
+      },
+      "sprites": [
+        {
+          "path": "bullets/lazer/01.png"
+        },
+        {
+          "path": "bullets/lazer/02.png"
+        }
+      ],
+      "on_hit_sprites": [
+        {
+          "path": "on_hit.png"
+        }
+      ],
+      "hitboxes": [
+        {
+          "x": "-20",
+          "y": "-3",
+          "width": "40",
+          "height": "6",
+          "angle": "0"
+        }
+      ]
+    },
+    {
+      "name": "ball",
+      "damage": "1",
+      "sound": {
+        "channel": "3",
+        "path": "sounds/shoot.ogg"
+      },
+      "sprites": [
+        {
+          "path": "bullets/ball/01.png"
+        }
+      ],
+      "on_hit_sprites": [
+        {
+          "path": "on_hit.png"
+        }
+      ],
+      "hitboxes": [
+        {
+          "x": "-10",
+          "y": "-10",
+          "width": "20",
+          "height": "20",
+          "angle": "0"
+        }
+      ]
+    }
+  ]
+  }
+  

@@ -1,0 +1,42 @@
+{
+"attacks":
+[
+  {
+    "name": "primary",
+    "patterns": [
+      {
+        "bullet": "rocket",
+        "animation_velocity": "5",
+        "angle": "-15",
+        "random_angle": "30",
+        "velocity": "20",
+        "max_velocity": "25",
+        "acceleration": "0",
+        "a_frequency": "0",
+        "cooldown": "2",
+        "offset_x": "80",
+        "offset_y": "45"
+      }
+    ]
+  },
+  {
+    "name": "secondary",
+    "patterns": [
+      {
+        "bullet": "spike",
+        "animation_velocity": "5",
+        "angle": "0",
+        "random_angle": "0",
+        "velocity": "40",
+        "max_velocity": "999",
+        "acceleration": "0",
+        "a_frequency": "0",
+        "cooldown": "2",
+        "offset_x": "80",
+        "offset_y": "45",
+        "player_velocity_override": "2"
+      }
+    ]
+  }
+]
+}

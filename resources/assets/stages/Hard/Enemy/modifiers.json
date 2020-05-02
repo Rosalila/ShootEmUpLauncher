@@ -1,0 +1,51 @@
+{
+  "modifiers":
+  [
+    {
+      "at": "0",
+      "velocity": "1",
+      "angle_change": "6"
+    },
+    {
+      "at": "125",
+      "velocity": "1",
+      "angle_change": "6"
+    },
+    {
+      "at": "200",
+      "pattern_type": "A"
+    },
+    {
+      "life_at": "3800",
+      "pattern_type": "B"
+    },
+    {
+      "life_at": "3500",
+      "pattern_type": "C"
+    },
+    {
+      "life_at": "2800",
+      "pattern_type": "D"
+    },
+    {
+      "life_at": "2500",
+      "pattern_type": "D2"
+    },
+    {
+      "life_at": "2200",
+      "pattern_type": "E"
+    },
+    {
+      "life_at": "1900",
+      "pattern_type": "F"
+    },
+    {
+      "life_at": "1600",
+      "pattern_type": "G"
+    },
+    {
+      "life_at": "1000",
+      "pattern_type": "H"
+    }
+  ]
+}  

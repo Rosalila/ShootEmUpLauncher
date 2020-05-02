@@ -1,0 +1,42 @@
+name: Itch.io release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Remove unwanted files
+        run: |
+          rm -rf Other
+          rm -rf img
+          rm -rf .github
+      - name: Prepare Linux upload
+        run: |
+          mv *.exe ..
+          mv *.dll ..
+      - name: Upload Linux build
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: linux
+          ITCH_GAME: test
+          ITCH_USER: turupawn
+          PACKAGE: .
+      - name: Prepare Windows upload
+        run: |
+          mv ../**.exe .
+          mv ../**.dll .
+          mv shmup ..
+      - name: Upload Windows build
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: windows
+          ITCH_GAME: test
+          ITCH_USER: turupawn
+          PACKAGE: .

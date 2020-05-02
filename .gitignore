@@ -1,8 +1,5 @@
-assets/
 release-builds/
-log
-shmup
-shmup.exe
+game
 
 # Logs
 logs

@@ -1,0 +1,279 @@
+{
+  "velocity": "7",
+  "dash_velocity": "23",
+  "slow": {
+    "max": "1000",
+    "decrement": "4",
+    "increment": "2",
+    "cooldown_increment": "1",
+    "slow_bar":
+    {
+      "x": "183",
+      "y": "13",
+      "active_color":
+      {
+        "r": "255",
+        "b": "255",
+        "a": "255"
+      },
+      "cooldown_color":
+      {
+        "r": "255",
+        "b": "255",
+        "a": "128"
+      },
+      "rectangle":
+      {
+        "width": "214",
+        "height": "20"
+      }
+    }
+  },
+  "primary_weapon_velocity": "7",
+  "secondary_weapon_velocity": "4",
+  "animation_velocity": "4",
+  "hp": "4",
+  "initial_position": {
+    "x": "150",
+    "y": "150"
+  },
+  "sounds": {
+    "hit": "sounds/hit.ogg"
+  },
+  "life_bar": {
+    "image": "sprites/life_bar.png",
+    "x": "50",
+    "y": "10",
+    "width": "350",
+    "height": "50",
+    "color":
+    {
+      "red": "65",
+      "green": "255",
+      "blue": "65"
+    }
+  },
+  "states": [
+    {
+      "name": "start",
+      "sprites": [
+        {
+          "path": "idle/01.png"
+        },
+        {
+          "path": "idle/02.png"
+        },
+        {
+          "path": "idle/03.png"
+        }
+      ]
+    },
+    {
+      "name": "up",
+      "sprites": [
+        {
+          "path": "up/01.png"
+        },
+        {
+          "path": "up/02.png"
+        },
+        {
+          "path": "up/03.png"
+        }
+      ]
+    },
+    {
+      "name": "down",
+      "sprites": [
+        {
+          "path": "down/01.png"
+        },
+        {
+          "path": "down/02.png"
+        },
+        {
+          "path": "down/03.png"
+        }
+      ]
+    },
+    {
+      "name": "after up/down",
+      "sprites": [
+        {
+          "path": "idle/01.png"
+        },
+        {
+          "path": "idle/02.png"
+        },
+        {
+          "path": "idle/03.png"
+        }
+      ]
+    },
+    {
+      "name": "left",
+      "sprites": [
+        {
+          "path": "left/01.png"
+        },
+        {
+          "path": "left/02.png"
+        },
+        {
+          "path": "left/03.png"
+        }
+      ]
+    },
+    {
+      "name": "right",
+      "sprites": [
+        {
+          "path": "right/01.png"
+        },
+        {
+          "path": "right/02.png"
+        },
+        {
+          "path": "right/03.png"
+        }
+      ]
+    },
+    {
+      "name": "after left/right",
+      "sprites": [
+        {
+          "path": "idle/01.png"
+        },
+        {
+          "path": "idle/02.png"
+        },
+        {
+          "path": "idle/03.png"
+        }
+      ]
+    },
+    {
+      "name": "dash up",
+      "sprites": [
+        {
+          "path": "dash_up/01.png"
+        },
+        {
+          "path": "dash_up/02.png"
+        },
+        {
+          "path": "dash_up/03.png"
+        }
+      ]
+    },
+    {
+      "name": "dash down",
+      "sprites": [
+        {
+          "path": "dash_down/01.png"
+        },
+        {
+          "path": "dash_down/02.png"
+        },
+        {
+          "path": "dash_down/03.png"
+        }
+      ]
+    },
+    {
+      "name": "dash left",
+      "sprites": [
+        {
+          "path": "dash_left/01.png"
+        },
+        {
+          "path": "dash_left/02.png"
+        },
+        {
+          "path": "dash_left/03.png"
+        }
+      ]
+    },
+    {
+      "name": "dash right",
+      "sprites": [
+        {
+          "path": "dash_right/01.png"
+        },
+        {
+          "path": "dash_right/02.png"
+        },
+        {
+          "path": "dash_right/03.png"
+        }
+      ]
+    },
+    {
+      "name": "destroyed",
+      "sprites": [
+        {
+          "path": "idle/01.png"
+        }
+      ]
+    }
+  ],
+  "hitboxes": [
+    {
+      "x": "-10",
+      "y": "-20",
+      "width": "15",
+      "height": "12",
+      "angle": "0"
+    }
+  ],
+  "shield OPTIONAL": {
+    "sprite": "shield.png",
+    "max_shield": "500",
+    "shield_fade": "40",
+    "proration": "40"
+  },
+  "charge OPTIONAL": {
+    "sprite": "charge.png",
+    "max_charge": "300",
+    "charge_velocity": "1",
+    "x": "-40",
+    "y": "0"
+  },
+  "parry OPTIONAL": {
+    "duration": "60",
+    "sound": "sounds/parry.ogg",
+    "parrying": {
+      "sprite": "parrying.png",
+      "x": "-40",
+      "y": "-35"
+    },
+    "parryed": {
+      "sprite": "parryed.png",
+      "x": "-40",
+      "y": "-35"
+    },
+    "hitboxes": [
+      {
+        "x": "-21",
+        "y": "-25",
+        "width": "5",
+        "height": "50",
+        "angle": "0"
+      },
+      {
+        "x": "-21",
+        "y": "-19",
+        "width": "5",
+        "height": "46",
+        "angle": "60"
+      },
+      {
+        "x": "19",
+        "y": "-3",
+        "width": "5",
+        "height": "46",
+        "angle": "-60"
+      }
+    ]
+  }
+}
