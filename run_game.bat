@@ -1,4 +1,4 @@
 @Echo off
-cd "game"
+cd "../game/windows"
 shmup.exe
 popd

@@ -6,8 +6,8 @@
   "scripts": {
     "start": "electron .",
     "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=icons/mac/icon.icns --prune=true --out=release-builds",
-    "package-win": "electron-packager . game --overwrite --asar=true --platform=win32 --arch=ia32 --icon=icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Shoot Em Up Maker Launcher\"",
-    "package-linux": "electron-packager . game --overwrite --asar=true --platform=linux --arch=x64 --icon=icons/png/icon.png --prune=true --out=release-builds"
+    "package-win": "electron-packager . launcher --overwrite --asar=true --platform=win32 --arch=ia32 --icon=icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Shoot Em Up Maker Launcher\"",
+    "package-linux": "electron-packager . launcher --overwrite --asar=true --platform=linux --arch=x64 --icon=icons/png/icon.png --prune=true --out=release-builds;cp run_game.sh release-builds/launcher-linux-x64"
   },
   "author": "turupawn",
   "license": "MIT",

@@ -24,7 +24,11 @@
       const electron = require('electron')
       const {ipcRenderer} = electron
       const app = require('electron').remote.app
-      const config_file_path = __dirname + '/../../game/assets/config.json'
+      var path = require('path')
+
+      const config_file_path = path.normalize(__dirname + '/../../../game/assets/config.json')
+
+      console.log(config_file_path)
 
       window.addEventListener('load', function(){
         const fs = require('fs')
@@ -91,7 +95,7 @@
 
         if(process.platform == 'linux' )
         {
-          exec('./shmup', (err, stdout, stderr) => {
+          exec('sh run_game.sh', (err, stdout, stderr) => {
             if (err) {
               console.error(`exec error: ${err}`)
               return;
