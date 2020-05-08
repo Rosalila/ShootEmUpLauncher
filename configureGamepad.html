@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shoot Em Up Launcher</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class='container'>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+              Configure Gamepad
+            </div>
+            <div class="card-body">
+              <div class='form-group'>
+                <button id='default_btn' onclick='resetDefaults()' class='btn btn-secondary mb-2'>Default</button>
+              </div>
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <th scope="row">
+                      Up
+                    </th>
+                    <td>
+                      <input type="text" class="form-control" id="up_input">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      Down
+                    </th>
+                    <td>
+                      <input type="text" class="form-control" id="down_input">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      Left
+                    </th>
+                    <td>
+                      <input type="text" class="form-control" id="left_input">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      Right
+                    </th>
+                    <td>
+                      <input type="text" class="form-control" id="right_input">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      Shoot
+                    </th>
+                    <td>
+                      <input type="text" class="form-control" id="shoot_input">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      Slow
+                    </th>
+                    <td>
+                      <input type="text" class="form-control" id="slow_input">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      Jump
+                    </th>
+                    <td>
+                      <input type="text" class="form-control" id="jump_input">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      Bomb
+                    </th>
+                    <td>
+                      <input type="text" class="form-control" id="bomb_input">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      Back
+                    </th>
+                    <td>
+                      <input type="text" class="form-control" id="back_input">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class='form-group'>
+                <button algin="right" id='back_btn' onclick='closeWindow()' class='btn btn-primary mb-2 float-right btn-lg'>Back</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const electron = require('electron')
+      const {ipcRenderer} = electron
+      const app = require('electron').remote.app
+      var path = require('path')
+
+      const config_file_path = path.normalize(__dirname + '/../../../game/assets/config.json')
+
+      function getButtonJsonElement(config_json, button)
+      {
+        input_type_gamepad = null
+        for (var i=0; i<config_json.inputs.player.type.length; i++)
+          if(config_json.inputs.player.type[i].name == 'gamepad')
+            input_type_gamepad = config_json.inputs.player.type[i]
+        
+        for (var i=0; i<input_type_gamepad.button.length; i++)
+          if(input_type_gamepad.button[i].name == button)
+            return input_type_gamepad.button[i]
+      }
+
+      function setButtonJsonElement(button, key)
+      {
+        const fs = require('fs')
+        const config_json = require(config_file_path)
+
+        input_type_gamepad = null
+        for (var i=0; i<config_json.inputs.player.type.length; i++)
+          if(config_json.inputs.player.type[i].name == 'gamepad')
+            input_type_gamepad = config_json.inputs.player.type[i]
+        
+        for (var i=0; i<input_type_gamepad.button.length; i++)
+          if(input_type_gamepad.button[i].name == button)
+            input_type_gamepad.button[i].key = key
+
+        fs.writeFile(config_file_path, JSON.stringify(config_json, null, 2), function writeJSON(err) {
+          if (err) return console.log(err)
+        })
+      }
+
+      function closeWindow()
+      {
+        electron.remote.getCurrentWindow().close()
+      }
+
+      function resetDefaults()
+      {
+        const fs = require('fs')
+        const config_json = require(config_file_path)
+
+        input_type_gamepad = null
+        for (var i=0; i<config_json.inputs.player.type.length; i++)
+          if(config_json.inputs.player.type[i].name == 'gamepad')
+            input_type_gamepad = config_json.inputs.player.type[i]
+        
+        for (var i=0; i<input_type_gamepad.button.length; i++)
+        {
+          switch(input_type_gamepad.button[i].name) {
+            case '8':
+              input_type_gamepad.button[i].key = 'up'
+              document.querySelector('#up_input').value = 'up'
+              break;
+            case '2':
+              input_type_gamepad.button[i].key = 'down'
+              document.querySelector('#down_input').value = 'down'
+              break;
+            case '4':
+              input_type_gamepad.button[i].key = 'left'
+              document.querySelector('#left_input').value = 'left'
+              break;
+            case '6':
+              input_type_gamepad.button[i].key = 'right'
+              document.querySelector('#right_input').value = 'right'
+              break;
+            case 'a':
+              input_type_gamepad.button[i].key = '1'
+              document.querySelector('#shoot_input').value = '1'
+              break;
+            case 'b':
+              input_type_gamepad.button[i].key = '2'
+              document.querySelector('#slow_input').value = '2'
+              break;
+            case 'c':
+              input_type_gamepad.button[i].key = '3'
+              document.querySelector('#jump_input').value = '3'
+              break;
+            case 'd':
+              input_type_gamepad.button[i].key = '4'
+              document.querySelector('#bomb_input').value = '4'
+              break;
+            case 'back':
+              input_type_gamepad.button[i].key = '5'
+              document.querySelector('#back_input').value = '5'
+              break;
+            default:
+          }
+        }
+
+        fs.writeFile(config_file_path, JSON.stringify(config_json, null, 2), function writeJSON(err) {
+          if (err) return console.log(err)
+        })
+      }
+
+      window.addEventListener('load', function(){
+        const fs = require('fs')
+        const config_json = require(config_file_path)
+        
+        document.getElementById('up_input').value = getButtonJsonElement(config_json, '8').key
+        document.getElementById('down_input').value = getButtonJsonElement(config_json, '2').key
+        document.getElementById('left_input').value = getButtonJsonElement(config_json, '4').key
+        document.getElementById('right_input').value = getButtonJsonElement(config_json, '6').key
+        document.getElementById('shoot_input').value = getButtonJsonElement(config_json, 'a').key
+        document.getElementById('slow_input').value = getButtonJsonElement(config_json, 'b').key
+        document.getElementById('jump_input').value = getButtonJsonElement(config_json, 'c').key
+        document.getElementById('bomb_input').value = getButtonJsonElement(config_json, 'd').key
+        document.getElementById('back_input').value = getButtonJsonElement(config_json, 'back').key
+      })
+
+      document.querySelector('#up_input').addEventListener('input', function(e){
+        const key = document.querySelector('#up_input').value
+        setButtonJsonElement('8', key)
+      })
+      document.querySelector('#down_input').addEventListener('input', function(e){
+        const key = document.querySelector('#down_input').value
+        setButtonJsonElement('2', key)
+      })
+      document.querySelector('#left_input').addEventListener('input', function(e){
+        const key = document.querySelector('#left_input').value
+        setButtonJsonElement('4', key)
+      })
+      document.querySelector('#right_input').addEventListener('input', function(e){
+        const key = document.querySelector('#right_input').value
+        setButtonJsonElement('6', key)
+      })
+      document.querySelector('#shoot_input').addEventListener('input', function(e){
+        const key = document.querySelector('#shoot_input').value
+        setButtonJsonElement('a', key)
+      })
+      document.querySelector('#slow_input').addEventListener('input', function(e){
+        const key = document.querySelector('#slow_input').value
+        setButtonJsonElement('b', key)
+      })
+      document.querySelector('#jump_input').addEventListener('input', function(e){
+        const key = document.querySelector('#jump_input').value
+        setButtonJsonElement('c', key)
+      })
+      document.querySelector('#bomb_input').addEventListener('input', function(e){
+        const key = document.querySelector('#bomb_input').value
+        setButtonJsonElement('d', key)
+      })
+      document.querySelector('#back_input').addEventListener('input', function(e){
+        const key = document.querySelector('#back_input').value
+        setButtonJsonElement('back', key)
+      })
+    </script>
+  </body>
+</html>

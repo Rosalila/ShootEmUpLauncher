@@ -2,24 +2,64 @@
 <html>
   <head>
     <title>Shoot Em Up Launcher</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   </head>
   <body>
-    <form>
-      <div>
-        <label>Fullscreen</label>
-        <input type='checkbox' id='fullscreen' autofocus>
-        <br>
-        <label>Screen size</label>
-        <select id='screen_size' >
-          <option value=''>select</option>
-          <option value='1280 x 720'>1280 x 720</option>
-          <option value='1366 x 768'>1366 x 768</option>
-          <option value='1920 x 1080'>1920 x 1080</option>
-          <option value='2560 x 1440'>2560 x 1440</option>
-        </select>
+    <div class='container'>
+      <h1>Ground Mosh</h1>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header">
+              Configure controls
+            </div>
+            <div class="card-body">
+              <div class='form-group'>
+                <button id='configure_keyboard_btn' onclick="ipcRenderer.send('create-configure-keyboard-window', null);" class='btn btn-secondary mb-2'>Keyboard</button>
+              </div>
+              <div class='form-group'>
+                <button id='configure_gamepad_btn' onclick="ipcRenderer.send('create-configure-gamepad-window', null);" class='btn btn-secondary mb-2'>Gamepad</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header">
+              Settings
+            </div>
+            <div class="card-body">
+              <form class='form-group'>
+                <div>
+                  <div class='form-group'>
+                    <label for='screen_size'>Screen size</label>
+                    <select class='form-control' id='screen_size'>
+                      <option value=''>select</option>
+                      <option value='1280 x 720'>1280 x 720</option>
+                      <option value='1366 x 768'>1366 x 768</option>
+                      <option value='1920 x 1080'>1920 x 1080</option>
+                      <option value='2560 x 1440'>2560 x 1440</option>
+                    </select>
+                  </div>
+                  <div class="form-check">
+                    <input id='fullscreen' class='form-check-input' type='checkbox' autofocus>
+                    <label class="form-check-label" for='fullscreen'>
+                      Fullscreen
+                    </label>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
-    </form>
-    <button id='play_button'>Play</button>
+      <hr>
+      <div class="row">
+        <div class="col-sm-12" algin="right">
+          <button algin="right" id='play_btn' class='btn btn-primary mb-2 float-right btn-lg'>Play</button>
+        </div>
+      </div>
+    </div>
     <script>
       const electron = require('electron')
       const {ipcRenderer} = electron
@@ -27,8 +67,6 @@
       var path = require('path')
 
       const config_file_path = path.normalize(__dirname + '/../../../game/assets/config.json')
-
-      console.log(config_file_path)
 
       window.addEventListener('load', function(){
         const fs = require('fs')
@@ -90,7 +128,7 @@
         })
       })
 
-      document.querySelector('#play_button').addEventListener('click', function(){
+      document.querySelector('#play_btn').addEventListener('click', function(){
         const { exec } = require('child_process');
 
         if(process.platform == 'linux' )
